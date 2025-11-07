@@ -1,8 +1,8 @@
-#                      open-vm-tools 12.5.0 Release Notes
+#                      open-vm-tools 13.0.5 Release Notes
 
-Updated on: 8 October 2024
+Updated on: 29 Sep 2025
 
-open-vm-tools | 8 OCTOBER 2024 | Build 24276846
+open-vm-tools | 29 SEP 2025 | Build 24915695
 
 Check back for additions and updates to these release notes.
 
@@ -12,7 +12,6 @@ The release notes cover the following topics:
 
 * [What's New](#whatsnew) 
 * [Internationalization](#i18n) 
-* [Product Support Notice](#suppnote)
 * [Guest Operating System Customization Support](#guestop) 
 * [Interoperability Matrix](#interop) 
 * [Resolved Issues](#resolvedissues) 
@@ -20,66 +19,50 @@ The release notes cover the following topics:
 
 ## <a id="whatsnew" name="whatsnew"></a>What's New
 
+*   This release resolves [CVE-2025-41244](https://www.cve.org/CVERecord?id=CVE-2025-41244). For more information on this vulnerability and its impact on Broadcom products, see [VMSA-2025-0015](https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/36149).
+
+    A patch to address CVE-2025-41244 on earlier open-vm-tools releases is provided to the Linux community at [CVE-2025-41244.patch](https://github.com/vmware/open-vm-tools/tree/CVE-2025-41244.patch).
+
+*   Guest OS Customization has been updated to use "systemctl reboot", if available.
 
 *   Please see the [Resolved Issues](#resolvedissues) and [Known Issues](#knownissues) sections below.
 
-*   A complete list of the granular changes in the open-vm-tools 12.5.0 release is available at:
+*   A complete list of the granular changes in the open-vm-tools 13.0.5 release is available at:
 
-    [open-vm-tools ChangeLog](https://github.com/vmware/open-vm-tools/blob/stable-12.5.0/open-vm-tools/ChangeLog)
+    [open-vm-tools ChangeLog](https://github.com/vmware/open-vm-tools/blob/stable-13.0.5/open-vm-tools/ChangeLog)
 
 ## <a id="i18n" name="i18n"></a>Internationalization
 
-open-vm-tools 12.5.0 is available in the following languages:
+open-vm-tools 13.0.5 is available in the following languages:
 
 * English
 * French
-* German
-* Spanish
-* Italian
 * Japanese
-* Korean
-* Simplified Chinese
-* Traditional Chinese
-
-## <a id="suppnote" name="suppnote"></a>Product Support Notice
-
-Beginning with the next major release, we will be reducing the number of supported localization languages.  The three supported languages will be:
-  * Japanese
-  * Spanish
-  * French
-
-The following languages will no longer be supported:
-  * Italian
-  * German
-  * Brazilian Portuguese
-  * Traditional Chinese
-  * Korean
-  * Simplified Chinese
-
-Impact:
-  * Users who have been using the deprecated languages will no longer receive updates or support in these languages.
-  * All user interfaces, message catalogs, help documentation, and customer support will be available only in English or in the three supported languages mentioned above.
+* Spanish
 
 ## <a id="guestop" name="guestop"></a>Guest Operating System Customization Support
 
-The [Guest OS Customization Support Matrix](http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf) provides details about the guest operating systems supported for customization.
+The [Guest OS Customization Support Matrix](https://compatibilityguide.broadcom.com/search?program=software&persona=live&customization=Guest+Customization&column=osVendors&order=asc) provides details about the guest operating systems supported for customization.
 
 
 ## <a id="interop" name="interop"></a>Interoperability Matrix
 
-The [VMware Product Interoperability Matrix](http://partnerweb.vmware.com/comp_guide2/sim/interop_matrix.php) provides details about the compatibility of current and earlier versions of VMware Products. 
+The [Broadcom Product Interoperability Matrix](https://interopmatrix.broadcom.com/Interoperability) provides details about the compatibility of current and earlier versions of VMware Products. 
 
 ## <a id="resolvedissues" name ="resolvedissues"></a> Resolved Issues
 
-*   **The following github.com/vmware/open-vm-tools pull request has been addressed.**
+*   **This release resolves CVE-2025-41244.**
 
-    * Revise settings for vmware-user.desktop
+    * For more information on this vulnerability and its impact on Broadcom products, see [VMSA-2025-0015](https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/36149).
 
-      [Pull request #668](https://github.com/vmware/open-vm-tools/pull/668)
+    * A patch to address CVE-2025-41244 on earlier open-vm-tools releases is provided to the Linux community at [CVE-2025-41244.patch](https://github.com/vmware/open-vm-tools/tree/CVE-2025-41244.patch).
 
-*   **Accomodate newer releases of libxml2 and xmlsec1.**
+*   **Guest OS Customization updated to use "systemctl reboot".**
 
-    The configure.ac and VGAuth code updated to avoid deprecated functions and build options based on OSS product version.
+    Currently the "telinit 6" command is used to reboot a Linux VM following Guest OS Customization.  As the classic Linux init system, SysVinit, is deprecated in favor of a newer init system, systemd, the telinit command may not be available on the base Linux OS.
+
+    This change adds support to Guest OS Customization for the systemd init system.  If the modern init system, systemd, is available, then a "systemctl reboot" command will be used to trigger reboot.  Otherwise, the "telinit 6" command will be used assuming the traditional init system, SysVinit, is still available.
+
 
 ## <a id="knownissues" name="knownissues"></a>Known Issues
 
@@ -95,4 +78,4 @@ The [VMware Product Interoperability Matrix](http://partnerweb.vmware.com/comp_
 
     <tt>vmhgfs-fuse   /mnt/hgfs    fuse    defaults,allow_other    0    0</tt>
 
-    For more information on how to configure VMware Tools Shared Folders, see [KB 60262](https://kb.vmware.com/s/article/60262)
+    For more information on how to configure VMware Tools Shared Folders, see [KB 60262](https://knowledge.broadcom.com/external/article?legacyId=60262).
